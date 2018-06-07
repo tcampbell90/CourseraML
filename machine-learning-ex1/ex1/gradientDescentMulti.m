@@ -18,20 +18,25 @@ for iter = 1:num_iters
     %
 
 
-
-
-
-
-
-
-
-
+    theta = theta - ((alpha/m)*(X*theta - y)'*X )'
 
     % ============================================================
 
     % Save the cost J in every iteration    
     J_history(iter) = computeCostMulti(X, y, theta);
 
-end
-
+    if iter == 1
+      continue;
+    elseif J_history(iter) < J_history(iter-1);
+      continue;
+    elseif J_history(iter) - J_history(iter-1) < 10^(-4)
+      break;
+    elseif J_history(iter) == 0
+      break;
+    endif;
+    
+    alpha = alpha + 0.001;
+    
+  endfor
+    
 end
