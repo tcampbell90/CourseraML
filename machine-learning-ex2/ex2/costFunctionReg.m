@@ -23,7 +23,11 @@ n = length(theta)
 
 grad(1) = (1/m)*(sigmoid(X*theta)-y(:)'*X(: , 1)
 
-grad(2:n) = (1/m)*(sigmoid(X*theta)-y)'*X(: , 2:size(X)(2)) + (lambda/m).*theta
+for k = 2:n
+
+grad(k) = (1/m)*(sigmoid(X*theta)-y)'*X(: , k)' + (lambda/m).*theta(k)
+  
+endfor
 
 
 % Non Reg Cost: J = (1/m)*sum(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)))
