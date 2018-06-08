@@ -11,6 +11,7 @@ m = length(y); % number of training examples
 J = 0;
 grad = zeros(size(theta));
 
+n = length(theta)
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost of a particular choice of theta.
 %               You should set J to the cost.
@@ -18,8 +19,16 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+%Non reg : grad = (1/m)*(sigmoid(X*theta)-y)'*X
+
+grad(1) = (1/m)*(sigmoid(X*theta)-y(:)'*X(: , 1)
+
+grad(2:n) = (1/m)*(sigmoid(X*theta)-y)'*X(: , 2:size(X)(2)) + (lambda/m).*theta
 
 
+% Non Reg Cost: J = (1/m)*sum(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)))
+
+J = (1/m)*sum(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)))-(lambda/(2*m)).*(theta(2:n)'*theta(2:n))
 
 
 % =============================================================
