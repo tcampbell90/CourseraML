@@ -37,18 +37,20 @@ grad = zeros(size(theta));
 %
 
 
+grad = (1/m).*((sigmoid(X*theta)-y)'*X);
+temp = theta;
+temp(1) = 0;
+gradReg = (lambda/m).*temp;
+grad = grad(:) + gradReg; %transforming grad to column vector in this step instead
 
 
-grad = (1/m)*(sigmoid(X*theta)-y)'*X;
+%Un-regularized Cost Function for Reference
+%J = (1/m)*sum(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)));
 
-J = (1/m)*sum(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)));
-
-
-
-
+J = (1/m)*(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)))+(lambda/(2*m))*(theta(2:end)'*theta(2:end));
 
 % =============================================================
 
-grad = grad(:);
+
 
 end
