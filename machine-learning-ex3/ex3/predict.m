@@ -10,6 +10,8 @@ num_labels = size(Theta2, 1);
 % You need to return the following variables correctly 
 p = zeros(size(X, 1), 1);
 
+X = [ones(m, 1) X];
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Complete the following code to make predictions using
 %               your learned neural network. You should set p to a 
@@ -21,10 +23,19 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+%calculation for hidden layer z_2 (layer 2)
+z_2 = X*Theta1';
+
+%adding ones to z_2 which is done every layer
+z_2 = [ones(size(z_2,1),1) z_2];
+
+%calculation for output layer z_3 (layer 3)
+z_3 = z_2*Theta2';
 
 
+[x , ix] = max(z_3, [], 2);
 
-
+p = ix;
 
 
 
