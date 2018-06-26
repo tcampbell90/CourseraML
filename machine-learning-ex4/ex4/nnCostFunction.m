@@ -62,8 +62,17 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+Theta1_grad = (1/m).*((sigmoid(X*Theta1)-y)'*X);
+temp = Theta1;
+temp(1) = 0;
+Theta1_grad_reg = (lambda/m).*temp;
+Theta1_grad = Theta1_grad(:) + Theta1_grad_reg ; %transforming grad to column vector in this step instead
 
 
+%Un-regularized Cost Function for Reference
+%J = (1/m)*sum(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)));
+
+J = (1/m)*(-y'*log(sigmoid(X*Theta1))-(1-y)'*log(1-sigmoid(X*Theta1)))+(lambda/(2*m))*(Theta1(2:end)'*Theta1(2:end));
 
 
 
