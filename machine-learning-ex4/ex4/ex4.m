@@ -57,6 +57,11 @@ load('ex4weights.mat');
 % Unroll parameters 
 nn_params = [Theta1(:) ; Theta2(:)];
 
+% The matrices Theta1 and Theta2 will now be in your workspace
+% Theta1 has size 25 x 401
+% Theta2 has size 10 x 26
+
+
 %% ================ Part 3: Compute Cost (Feedforward) ================
 %  To the neural network, you should first start by implementing the
 %  feedforward part of the neural network that returns the cost only. You
