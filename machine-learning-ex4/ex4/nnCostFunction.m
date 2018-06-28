@@ -63,13 +63,28 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+%
+% Programming help
+% https://www.coursera.org/learn/machine-learning/resources/Uuxg6
 
+%convert y to y matrix where the position/index of the 1 indicates the num_label
+y_matrix = eye(num_labels)(y,:);
 
+%adding bias unit to X
+a1 = [ones(m,1) X];
 
+%layer 2 calc
+z2 = sigmoid(a1*Theta1');
 
+%add bias unit to layer 2
+a2 = [ones(size(z_2,1),1) z_2];
 
+%layer 3 calc
+z_3 = sigmoid(a_2*Theta2');
 
-
+%calc highest prob prediction from neural net
+% ix is the index value
+[x , ix] = max(a_3, [], 2);
 
 
 
