@@ -77,16 +77,19 @@ a1 = [ones(m,1) X];
 z2 = sigmoid(a1*Theta1');
 
 %add bias unit to layer 2
-a2 = [ones(size(z_2,1),1) z_2];
+a2 = [ones(size(z2,1),1) z2];
 
 %layer 3 calc
-z_3 = sigmoid(a_2*Theta2');
+z3 = sigmoid(a2*Theta2');
 
 %calc highest prob prediction from neural net
 % ix is the index value
-[x , ix] = max(a_3, [], 2);
+%[x , ix] = max(a_3, [], 2);
 
+%from programming resources
+%"a3 is the result of passing z3 through g()Cost Function, non-regularized"
 
+a3 = (1/m)*(-y_matrix*log(z3) - (1-y_matrix)*log(1-z3))
 
 
 
