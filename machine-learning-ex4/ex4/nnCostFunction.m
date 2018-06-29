@@ -61,25 +61,42 @@ Theta2_grad = zeros(size(Theta2));
 %               the regularization separately and then add them to Theta1_grad
 %               and Theta2_grad from Part 2.
 %
-
-Theta1_grad = (1/m).*((sigmoid(X*Theta1)-y)'*X);
-temp = Theta1;
-temp(1) = 0;
-Theta1_grad_reg = (lambda/m).*temp;
-Theta1_grad = Theta1_grad(:) + Theta1_grad_reg ; %transforming grad to column vector in this step instead
+%
+% Programming help
+% https://www.coursera.org/learn/machine-learning/resources/Uuxg6
 
 
-%Un-regularized Cost Function for Reference
-%J = (1/m)*sum(-y'*log(sigmoid(X*theta))-(1-y)'*log(1-sigmoid(X*theta)));
+%%Cost Function Code:
+%convert y to y matrix where the position/index of the 1 indicates the num_label
+%y_matrix = eye(num_labels)(y,:); original approach
+y_matrix =[1:num_labels] == y;
 
-J = (1/m)*(-y'*log(sigmoid(X*Theta1))-(1-y)'*log(1-sigmoid(X*Theta1)))+(lambda/(2*m))*(Theta1(2:end)'*Theta1(2:end));
+%adding bias unit to X
+a1 = [ones(m,1) X];
+
+%layer 2 calc (skipping step z2 = a1*Theta1')
+a2 = sigmoid(a1*Theta1');
+
+%add bias unit to layer 2
+a2 = [ones(size(a2,1),1) a2];
+
+%layer 3 calc (skipping step z3 = a2*Theta2')
+a3 = sigmoid(a2*Theta2');
 
 
 
+%calc highest prob prediction from neural net
+% ix is the index value
+%[x , ix] = max(a_3, [], 2);
 
+%from programming resources
+%"a3 is the result of passing z3 through g()Cost Function, non-regularized"
 
+J = (1/m)*sum(sum(-y_matrix'*log(a3) - (1-y_matrix)'*log(1-a3)))
 
+%(1/m)*sum(-(y_matrix*ones(size(y_matrix,2),1))'*log(a3) - (1-y_matrix*ones(size(y_matrix,2),1))'*log(1-a3))
 
+===
 
 
 
