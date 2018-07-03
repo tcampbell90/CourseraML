@@ -83,30 +83,23 @@ a2 = [ones(size(a2,1),1) a2];
 %layer 3 calc (skipping step z3 = a2*Theta2')
 a3 = sigmoid(a2*Theta2');
 
-
-
 %calc highest prob prediction from neural net
 % ix is the index value
 %[x , ix] = max(a_3, [], 2);
 
+
 %from programming resources
 %"a3 is the result of passing z3 through g()Cost Function, non-regularized"
+%Using sum(sum()) actually computes the incorrect cost function. Want to compute the trace() of the matrix actually
 
-J = (1/m)*sum(sum(-y_matrix'*log(a3) - (1-y_matrix)'*log(1-a3)))
-
-%(1/m)*sum(-(y_matrix*ones(size(y_matrix,2),1))'*log(a3) - (1-y_matrix*ones(size(y_matrix,2),1))'*log(1-a3))
-
-===
+%Unregularized Cost Function
+J = (1/m)*trace(-y_matrix'*log(a3) - (1-y_matrix)'*log(1-a3))
 
 
+J_reg = (lambda/(2*m))*(sum(sum(Theta1(:,2:end).^2))+sum(sum(Theta2(:,2:end).^2)))
+%J_reg = (lambda/(2*m))*(sum(sum(Theta1.^2))+sum(sum(Theta2.^2)))
 
-
-
-
-
-
-
-% -------------------------------------------------------------
+J = J + J_reg
 
 % =========================================================================
 
