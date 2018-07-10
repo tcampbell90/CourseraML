@@ -95,9 +95,9 @@ a3 = sigmoid(a2*Theta2');
 %Unregularized Cost Function
 J = (1/m)*trace(-y_matrix'*log(a3) - (1-y_matrix)'*log(1-a3))
 
-
+%adding regularization component to unregularized cost function
 J_reg = (lambda/(2*m))*(sum(sum(Theta1(:,2:end).^2))+sum(sum(Theta2(:,2:end).^2)))
-%J_reg = (lambda/(2*m))*(sum(sum(Theta1.^2))+sum(sum(Theta2.^2)))
+
 
 J = J + J_reg
 
