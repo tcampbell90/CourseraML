@@ -83,43 +83,23 @@ a2 = [ones(size(a2,1),1) a2];
 %layer 3 calc (skipping step z3 = a2*Theta2')
 a3 = sigmoid(a2*Theta2');
 
+%calc highest prob prediction from neural net
+% ix is the index value
+%[x , ix] = max(a_3, [], 2);
+
+
+%from programming resources
+%"a3 is the result of passing z3 through g()Cost Function, non-regularized"
+%Using sum(sum()) actually computes the incorrect cost function. Want to compute the trace() of the matrix actually
+
 %Unregularized Cost Function
-J = (1/m)*trace(-y_matrix'*log(a3) - (1-y_matrix)'*log(1-a3));
+J = (1/m)*trace(-y_matrix'*log(a3) - (1-y_matrix)'*log(1-a3))
 
 %adding regularization component to unregularized cost function
 J_reg = (lambda/(2*m))*(sum(sum(Theta1(:,2:end).^2))+sum(sum(Theta2(:,2:end).^2)));
 
+
 J = J + J_reg;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Backpropagation Starts Here%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-d3 = a3-y_matrix;
-
-d2 = (Theta2(:,2:end)'*d3').*sigmoidGradient(a1*Theta1')';
-
-Delta1 = d2*a1;
-
-Delta2 = d3'*a2;
-
-Theta1_grad = Delta1*(1/m);
-Theta2_grad = Delta2*(1/m);
-
-
-%Regulization of the Theta Gradients
-Theta1(:,1)= 0;
-Theta2(:,1)= 0;
-
-Theta1 = Theta1.*(lambda/m);
-Theta2 = Theta2.*(lambda/m);
-
-Theta1_grad = Theta1_grad+Theta1;
-Theta2_grad = Theta2_grad+Theta2;
-
-
-
-
 
 % =========================================================================
 
